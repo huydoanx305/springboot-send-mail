@@ -23,7 +23,7 @@ public class SendMailController {
         try {
             mailService.sendMail(new DataMailDTO(dataMail.get("to"), dataMail.get("subject"), dataMail.get("content")), files);
         } catch (MessagingException e) {
-            System.out.println("send failed");
+            return ResponseEntity.ok().body("Send failed");
         }
         return ResponseEntity.ok().body("Send mail successfully");
     }
