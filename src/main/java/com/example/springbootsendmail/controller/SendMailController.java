@@ -19,8 +19,12 @@ public class SendMailController {
 
     @PostMapping("/send-mail")
     public ResponseEntity<?> demoSendMail(@RequestParam Map<String, String> dataMail,
-                                          @RequestParam MultipartFile[] files) throws MessagingException {
-        mailService.sendMail(new DataMailDTO(dataMail.get("to"), dataMail.get("subject"), dataMail.get("content")), files);
+                                          @RequestParam MultipartFile[] files) {
+        try {
+            mailService.sendMail(new DataMailDTO(dataMail.get("to"), dataMail.get("subject"), dataMail.get("content")), files);
+        } catch (MessagingException e) {
+            System.out.println("send failed");
+        }
         return ResponseEntity.ok().body("Send mail successfully");
     }
 }
